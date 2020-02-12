@@ -1,0 +1,16 @@
+query read($id: ID!) {
+  models(
+    per_page: 1
+    filter: {
+      model_schema_name: { exact: "list" }
+      properties: { name: "title", exists: true }
+      id: { value: $id }
+    }
+  ) {
+    results {
+      id
+      deleted_at
+      title: property(name: "title")
+    }
+  }
+}

@@ -1,0 +1,8 @@
+name: item
+properties:
+- name: list_id
+  type: string
+- name: content
+  type: string
+- name: completed
+  type: boolean

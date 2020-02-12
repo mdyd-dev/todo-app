@@ -1,1 +1,14 @@
-{% include 'hello' %}
+{% graphql lists = 'index' | fetch: 'models' | fetch: 'results' %}
+
+<ul>
+  {% for list in lists %}
+    <li>
+      <a href="/list/show/{{ list.id }}">{{ list.id }} - {{ list.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
+
+<form action="/list/create" method="POST">
+  <input type="text" name="title" placeholder="List title">
+  <button>Create new list</button>
+</form>

@@ -1,0 +1,4 @@
+name: list
+properties:
+- name: title
+  type: string

@@ -1,0 +1,16 @@
+---
+method: post
+---
+{%- assign list_id = context.params.slug3 -%}
+{%- assign content = context.params.content -%}
+
+{% graphql result = 'item_create', list_id: list_id, content: content %}
+{% assign item = result | fetch: "model_create" %}
+
+{% if item.id %}
+<script>window.location.href = '/list/show/{{ list_id }}';</script>
+{% else %}
+Something went wrong :(
+<br>
+{{ result.errors }}
+{% endif %}

@@ -1,0 +1,10 @@
+mutation create($title: String!) {
+  model_create(
+    model: {
+      model_schema_name: "list"
+      properties: { name: "title", value: $title }
+    }
+  ) {
+    id
+  }
+}

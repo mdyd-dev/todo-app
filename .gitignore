@@ -6,5 +6,7 @@ node_modules/
 # Webpack generated assets
 app/assets/*
 
+tmp/
+
 # OS junk
 .DS_Store

@@ -1,0 +1,21 @@
+query read($id: String!) {
+  models(
+    per_page: 100
+    filter: {
+      model_schema_name: { exact: "item" }
+      deleted_at: { exists: false }
+      properties: [
+        { name: "content", exists: true }
+        { name: "list_id", value: $id }
+      ]
+    }
+    sort: { id: { order: ASC } }
+  ) {
+    results {
+      id
+      content: property(name: "content")
+      completed: property_boolean(name: "completed")
+      list_id: property(name: "list_id")
+    }
+  }
+}
