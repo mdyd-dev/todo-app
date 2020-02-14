@@ -2,7 +2,7 @@ query read($id: String!) {
   models(
     per_page: 100
     filter: {
-      model_schema_name: { exact: "item" }
+      model_schema_name: { value: "item" }
       deleted_at: { exists: false }
       properties: [
         { name: "content", exists: true }

@@ -2,7 +2,7 @@ query read($id: ID!) {
   models(
     per_page: 1
     filter: {
-      model_schema_name: { exact: "list" }
+      model_schema_name: { value: "list" }
       id: { value: $id }
     }
   ) {
