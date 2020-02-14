@@ -4,13 +4,12 @@ method: post
 {%- assign id = context.params.slug3 -%}
 {%- assign content = context.params.content -%}
 
-<!--
-  "true" (string) comes in, true (boolean) comes out.
-  not "true" comes in, false comes out.
--->
-{%- assign completed = context.params.completed | matches: 'true' | default: false -%}
 
-{% if completed %}
+{% if context.params.completed %}
+  <!--
+    "1" (string) comes in, true (boolean) comes out.
+  -->
+  {%- assign completed = context.params.completed | matches: '1' -%}
   {% graphql result = 'item_update_completed', id: id, completed: completed %}
 {% else if content.size > 0 %}
   {% graphql result = 'item_update_content', id: id, content: content %}

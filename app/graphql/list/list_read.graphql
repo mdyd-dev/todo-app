@@ -3,7 +3,6 @@ query read($id: ID!) {
     per_page: 1
     filter: {
       model_schema_name: { exact: "list" }
-      properties: { name: "title", exists: true }
       id: { value: $id }
     }
   ) {

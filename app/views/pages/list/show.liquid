@@ -4,63 +4,95 @@
 
 {% unless list.deleted_at %}
 
-<h1>
-  <small>{{ list.id }}</small>
-  {{ list.title }}
+<div class="flex items-center" x-data="{ open: false }">
+  <h1 class="mr-10">{{ list.title }}</h1>
 
-  <form action="/list/update/{{ list.id }}" method="POST">
-    <input type="text" name="title" placeholder="Change title">
-    <button>save</button>
+  <button
+    @click.prevent="open = !open"
+    x-show="open !== true">
+    Change title
+  </button>
+
+  <form
+    method="POST"
+    action="/list/update/{{ list.id }}"
+    x-show="open === true">
+    <input type="text" name="title" placeholder="New title" required>
+    <button class="button-primary">Save</button>
+    <button @click.prevent="open = false">Cancel</button>
   </form>
-</h1>
+</div>
 
-<hr>
+<div class="border-t border-gray-400 my-8"></div>
 
-<h3>Add new</h3>
-<form action="/item/create/{{ list.id }}" method="POST">
-  <input type="text" name="content" placeholder="Your task">
-  <button>Create</button>
-</form>
+<div x-data="{ open: false }">
+  <button class="button-primary"
+    @click.prevent="open = !open"
+    x-show="open !== true">
+    Add new
+  </button>
+
+  <form
+    action="/item/create/{{ list.id }}"
+    method="POST"
+    x-show="open === true">
+    <input type="text" name="content" placeholder="Your task">
+    <button class="button-primary">Create</button>
+    <button type="reset" @click="open = false">Cancel</button>
+  </form>
+</div>
 
 {% if items.size > 0 %}
 
-<table>
+<table class="w-full mt-8">
   <thead>
     <tr>
-      <th>ID</th>
-      <th>Done</th>
-      <th>Content</th>
-      <th>Change</th>
-      <th>Delete</th>
+      <th class="w-16"></th>
+      <th class="w-auto">Task</th>
+      <th class="w-32 text-right">Actions</th>
     </tr>
   </thead>
   <tbody>
     {% for item in items %}
     <tr>
-      <td>
-        {{ item.id }}
-      </td>
 
       <td>
-        <form action="/item/update/{{ item.id }}" method="POST">
+        <form
+          action="/item/update/{{ item.id }}"
+          method="POST"
+          class="text-center">
+          <input type="hidden" name="completed" value="0">
           <input
             type="checkbox"
             name="completed"
-            value="true"
+            value="1"
             onchange="this.form.submit()"
+            class="w-8 h-8"
             {% if item.completed == true %}checked{% endif %}
           />
           <input type="hidden" name="list_id" value="{{ list.id }}">
         </form>
         </td>
-        <td>
-          {{ item.content }}
-        </td>
-        <td>
-          <form action="/item/update/{{ item.id }}" method="POST">
-            <input type="text" name="content" value="{{ item.content }}" />
+
+        <td x-data="{ open: false }" class="flex items-center">
+          <span x-show="open !== true">{{ item.content }}</span>
+
+          <button
+            @click.prevent="open = !open"
+            x-show="open !== true"
+            class="ml-auto">
+            Edit
+          </button>
+
+          <form
+            method="POST"
+            action="/item/update/{{ item.id }}"
+            x-show="open === true"
+            class="flex w-full">
+            <input type="text" name="content" value="{{ item.content }}" required />
             <input type="hidden" name="list_id" value="{{ list.id }}">
-            <button>update</button>
+            <button class="button-primary ml-2">save</button>
+            <button type="reset" @click="open = false" class="ml-auto">Cancel</button>
           </form>
         </td>
 
