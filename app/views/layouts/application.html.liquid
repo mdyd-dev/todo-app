@@ -7,25 +7,18 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>TODO</title>
   <link rel="stylesheet" href="{{ 'css/app.css' | asset_url }}">
-  <style>
-    form,
-    input {
-      margin: 0;
-    }
-  </style>
+  <style> form, input { margin: 0; } </style>
   <script src="{{ 'js/app.js' | asset_url }}" defer></script>
 </head>
 
 <body>
 
   <div class="container">
-    <p>
-      🏠 <a href="/">Home</a>
+    <p class="mt-8 button">
+      🏠 <a href="/" class="text-2xl">Todoleo <small class="text-gray-500">beta</small></a>
     </p>
 
     {{ content_for_layout }}
   </div>
-
 </body>
-
 </html>

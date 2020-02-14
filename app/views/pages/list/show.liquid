@@ -4,22 +4,24 @@
 
 {% unless list.deleted_at %}
 
-<div class="flex items-center" x-data="{ open: false }">
-  <h1 class="mr-10">{{ list.title }}</h1>
+<div class="flex flex-wrap items-center" x-data="{ open: false }">
+  <h2 class="mr-10 mb-0">{{ list.title }}</h2>
 
   <button
     @click.prevent="open = !open"
-    x-show="open !== true">
+    x-show="open !== true"
+    class="ml-auto">
     Change title
   </button>
 
   <form
     method="POST"
     action="/list/update/{{ list.id }}"
-    x-show="open === true">
-    <input type="text" name="title" placeholder="New title" required>
-    <button class="button-primary">Save</button>
-    <button @click.prevent="open = false">Cancel</button>
+    x-show="open === true"
+    class="w-full flex mt-4">
+    <input type="text" name="title" placeholder="New title" value="{{ list.title }}" class="w-2/3" required>
+    <button class="button-primary ml-2">Save</button>
+    <button @click.prevent="open = false" class="ml-2">Cancel</button>
   </form>
 </div>
 
@@ -89,7 +91,7 @@
             action="/item/update/{{ item.id }}"
             x-show="open === true"
             class="flex w-full">
-            <input type="text" name="content" value="{{ item.content }}" required />
+            <input type="text" name="content" value="{{ item.content }}" required class="w-1/2" />
             <input type="hidden" name="list_id" value="{{ list.id }}">
             <button class="button-primary ml-2">save</button>
             <button type="reset" @click="open = false" class="ml-auto">Cancel</button>
