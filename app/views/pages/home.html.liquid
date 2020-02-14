@@ -1,12 +1,17 @@
 {% graphql lists = 'index' | fetch: 'models' | fetch: 'results' %}
 
-<ol>
-  {% for list in lists %}
-    <li>
-      <a href="/list/show/{{ list.id }}">{{ list.title }}</a>
-    </li>
-  {% endfor %}
-</ol>
+
+{% if lists.size > 0 %}
+  <ol>
+    {% for list in lists %}
+      <li>
+        <a href="/list/show/{{ list.id }}">{{ list.title }}</a>
+      </li>
+    {% endfor %}
+  </ol>
+{% else %}
+  <p>There are no lists yet. You can create the first one!</p>
+{% endif %}
 
 <div x-data="{ open: false }">
 
