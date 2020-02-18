@@ -1,18 +1,19 @@
 # Todo App
 
-## Features
+Everything you need to deploy the app is ready in `app/` directory. To deploy, use `pos-cli deploy [environment]`.
 
-### Todo lists
+## Documentation
 
-* List
-* Create (required field: name)
-* Delete (if empty)
-* Rename
-* Show - List all associated items
+Read [documentation](https://documentation.platformos.com) on how this application has been built, step by step.
 
-### List item
+## Development
 
-* Create (required field: title)
-* Remove
-* Mark as done
-* Edit title
+    npm ci
+
+Add your development env under name `dev` (or edit npm tasks to reflect reality).
+
+    npm start
+
+After you are done, kill `npm start` and build your production assets:
+
+    npm run build
