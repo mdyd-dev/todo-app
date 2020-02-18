@@ -38,7 +38,7 @@
     action="/item/create/{{ list.id }}"
     method="POST"
     x-show="open === true">
-    <input type="text" name="content" placeholder="Your task">
+    <input type="text" name="content" placeholder="Your task" required>
     <button class="button-primary">Create</button>
     <button type="reset" @click="open = false">Cancel</button>
   </form>
