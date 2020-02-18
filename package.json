@@ -24,15 +24,15 @@
     "concurrently": "^5.1.0",
     "css-loader": "^3.4.2",
     "mini-css-extract-plugin": "^0.9.0",
-    "postcss": "^7.0.26",
+    "postcss": "^7.0.27",
     "postcss-csso": "^4.0.0",
     "postcss-fixes": "^2.0.1",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
     "tailwindcss": "^1.2.0",
-    "terser-webpack-plugin": "^2.3.4",
+    "terser-webpack-plugin": "^2.3.5",
     "webpack": "^4.41.6",
-    "webpack-cli": "^3.3.10"
+    "webpack-cli": "^3.3.11"
   },
   "browserslist": "> 1% or last 2 years",
   "name": "todo-app",
@@ -41,6 +41,6 @@
   "author": "Paweł Kowalski <pavelloz@gmail.com>",
   "license": "ISC",
   "dependencies": {
-    "alpinejs": "^1.11.0"
+    "alpinejs": "^1.12.0"
   }
 }
