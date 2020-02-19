@@ -8,7 +8,6 @@ query read($id: ID!) {
   ) {
     results {
       id
-      deleted_at
       title: property(name: "title")
     }
   }

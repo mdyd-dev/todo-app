@@ -1,6 +1,5 @@
 {% graphql lists = 'index' | fetch: 'models' | fetch: 'results' %}
 
-
 {% if lists.size > 0 %}
   <ol>
     {% for list in lists %}
@@ -14,7 +13,6 @@
 {% endif %}
 
 <div x-data="{ open: false }">
-
   <button
     @click.prevent="open = !open"
     x-show="open !== true"
