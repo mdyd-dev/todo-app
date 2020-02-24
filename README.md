@@ -4,7 +4,7 @@ Everything you need to deploy the app is ready in `app/` directory. To deploy, u
 
 ## Documentation
 
-Read [documentation](https://documentation.platformos.com) on how this application has been built, step by step.
+Read [documentation](https://documentation.platformos.com/get-started/todo-app/build-todo-list-app) on how this application has been built, step by step.
 
 ## Development
 
