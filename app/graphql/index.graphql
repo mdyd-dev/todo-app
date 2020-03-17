@@ -11,6 +11,8 @@ query index {
     results {
       id
       title: property(name: "title")
+      email: property(name: "email")
+      password: property(name: "password")
     }
   }
 }

@@ -1,10 +1,15 @@
+{% assign prop = 'id' %}
+
 {% graphql lists = 'index' | fetch: 'models' | fetch: 'results' %}
 
 {% if lists.size > 0 %}
   <ol>
     {% for list in lists %}
       <li>
-        <a href="/list/show/{{ list.id }}">{{ list.title }}</a>
+        <a href="/list/show/{{ list.id }}">
+          {% if list.password %}🔒{% endif %}
+          {{ list.title }}
+        </a>
       </li>
     {% endfor %}
   </ol>
@@ -12,7 +17,7 @@
   <p>There are no lists yet. You can create the first one!</p>
 {% endif %}
 
-<div x-data="{ open: false }">
+<div x-data="{ open: false, protected: false }" class="p-8 bg-gray-200 rounded-lg">
   <button
     @click.prevent="open = !open"
     x-show="open !== true"
@@ -24,8 +29,38 @@
     action="/list/create"
     method="POST"
     x-show="open === true">
-    <input type="text" name="title" placeholder="List title" required>
-    <button class="button-primary">Create</button>
+
+    <h4>New list</h4>
+
+    <fieldset>
+      <label>
+        Title
+        <br>
+        <input type="text" name="title" placeholder="List title" required>
+      </label>
+    </fieldset>
+
+    <fieldset>
+      <label for="protected" class="inline-flex items-center">
+        <input type="checkbox" name="protected" id="protected" @change="protected = !protected" :checked="protected" class="form-checkbox w-6 h-6 mr-2">
+        Password protected
+      </label>
+    </fieldset>
+
+    <fieldset :disabled="protected !== true" x-show="protected === true">
+      <label>
+        Password
+        <br>
+        <input type="text" name="password" placeholder="Password" required>
+      </label>
+      <label>
+        Email
+        <br>
+        <input type="text" name="email" placeholder="Your email" required>
+      </label>
+    </fieldset>
+
+    <button class="button-primary mt-4">Create</button>
     <button @click.prevent="open = false">Cancel</button>
   </form>
 </div>

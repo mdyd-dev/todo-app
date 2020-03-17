@@ -8,7 +8,7 @@ method: post
 {% assign item = result | fetch: "model_create" %}
 
 {% if item.id %}
-<script>window.location.href = '/list/show/{{ list_id }}';</script>
+<script>window.location.href = '/list/show/{{ list_id }}?password={{ context.params.password }}';</script>
 {% else %}
 Something went wrong :(
 <br>

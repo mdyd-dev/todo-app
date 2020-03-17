@@ -1,0 +1,20 @@
+---
+to: "{{ data.email }}"
+delay: 0
+enabled: true
+trigger_condition: true
+from: no-reply@example.com
+reply_to: no-reply@example.com
+cc:
+bcc:
+subject: "List \"{{ data.title }}\" has been created"
+layout_path: mailer
+---
+
+<h2>Your list has been created</h2>
+
+<p>
+  List name: {{ data.title }} <br>
+  List password: {{ data.password }} <br>
+  <a href="https://{{ context.location.host }}/list/show/{{ data.id }}?password={{ data.password }}">Preview list</a>
+</p>

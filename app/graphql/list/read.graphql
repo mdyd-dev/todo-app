@@ -9,6 +9,7 @@ query read($id: ID!) {
     results {
       id
       title: property(name: "title")
+      password: property(name: "password")
     }
   }
 }

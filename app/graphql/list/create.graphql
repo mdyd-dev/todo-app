@@ -1,8 +1,12 @@
-mutation create($title: String!) {
+mutation create($title: String!, $email: String, $password: String) {
   model_create(
     model: {
       model_schema_name: "list"
-      properties: { name: "title", value: $title }
+      properties: [
+        { name: "title", value: $title }
+        { name: "email", value: $email }
+        { name: "password", value: $password }
+      ]
     }
   ) {
     id

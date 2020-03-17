@@ -1,0 +1,25 @@
+<div class="flex flex-wrap items-center" x-data="{ open: false }">
+  <h2 class="mr-10 mb-0">
+    {% if list.password %}<span title="Password: {{ list.password }}">🔒</span>{% endif %}
+    {{ list.title }}
+  </h2>
+
+  <button
+    @click.prevent="open = !open"
+    x-show="open !== true"
+    class="ml-auto">
+    Change title
+  </button>
+
+  <form
+    method="POST"
+    action="/list/update/{{ list.id }}"
+    x-show="open === true"
+    class="w-full flex mt-4">
+    <input type="text" name="title" placeholder="New title" value="{{ list.title }}" class="w-2/3" required>
+    <button class="button-primary ml-2">Save</button>
+    <button @click.prevent="open = false" class="ml-2">Cancel</button>
+  </form>
+</div>
+
+<div class="border-t border-gray-400 my-8"></div>

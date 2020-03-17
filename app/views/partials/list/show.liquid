@@ -1,0 +1,21 @@
+{% graphql items = 'item/read', id: id | fetch: 'models' | fetch: 'results' %}
+
+{% include 'list/title' %}
+{% include 'list/new_item' %}
+
+{% if items.size > 0 %}
+  <table class="w-full mt-8">
+    <thead>
+      <tr>
+        <th class="w-16"></th>
+        <th class="w-auto">Task</th>
+        <th class="w-32 text-right">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% include 'list/item' with items %}
+    </tbody>
+  </table>
+{% else %}
+  {% include 'list/remove' %}
+{% endif %}

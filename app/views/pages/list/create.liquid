@@ -1,13 +1,25 @@
 ---
 method: post
 ---
-{%- assign title = context.params.title -%}
+{% parse_json arguments %}
+{
+  "title": "{{ context.params.title }}",
+  "email": "{{ context.params.email }}",
+  "password": "{{ context.params.password }}"
+}
+{% endparse_json %}
 
-{% graphql result = 'list/create', title: title %}
+{% graphql result = 'list/create', args: arguments %}
 {% assign list = result | fetch: "model_create" %}
 
 {% if list.id %}
-<script>window.location.href = '/list/show/{{ list.id }}';</script>
+  {% assign data = arguments | add_hash_key: 'id', list.id %}
+
+  {% if arguments.password and arguments.email %}
+    {% graphql notify = 'emails/created_protected_list', data: data %}
+  {% endif %}
+
+  <script>window.location.href = '/list/show/{{ list.id }}?password={{ context.params.password }}';</script>
 {% else %}
 Something went wrong :(
 <br>

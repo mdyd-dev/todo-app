@@ -1,130 +1,19 @@
 {%- assign id = context.params.slug3 -%}
 {% graphql list = 'list/read', id: id | fetch: 'models' | fetch: 'results' | first %}
-{% graphql items = 'item/read', id: id | fetch: 'models' | fetch: 'results' %}
 
-{% unless list.deleted_at %}
+{% if list.password.size > 0 %}
+  {% if context.params.password == list.password %}
+    {% include 'list/show' %}
+  {% else %}
+    {% include 'list/wrong_password' %}
 
-<div class="flex flex-wrap items-center" x-data="{ open: false }">
-  <h2 class="mr-10 mb-0">{{ list.title }}</h2>
-
-  <button
-    @click.prevent="open = !open"
-    x-show="open !== true"
-    class="ml-auto">
-    Change title
-  </button>
-
-  <form
-    method="POST"
-    action="/list/update/{{ list.id }}"
-    x-show="open === true"
-    class="w-full flex mt-4">
-    <input type="text" name="title" placeholder="New title" value="{{ list.title }}" class="w-2/3" required>
-    <button class="button-primary ml-2">Save</button>
-    <button @click.prevent="open = false" class="ml-2">Cancel</button>
-  </form>
-</div>
-
-<div class="border-t border-gray-400 my-8"></div>
-
-<div x-data="{ open: false }">
-  <button class="button-primary"
-    @click.prevent="open = !open"
-    x-show="open !== true">
-    Add new
-  </button>
-
-  <form
-    action="/item/create/{{ list.id }}"
-    method="POST"
-    x-show="open === true">
-    <input type="text" name="content" placeholder="Your task" required>
-    <button class="button-primary">Create</button>
-    <button type="reset" @click="open = false">Cancel</button>
-  </form>
-</div>
-
-{% if items.size > 0 %}
-
-<table class="w-full mt-8">
-  <thead>
-    <tr>
-      <th class="w-16"></th>
-      <th class="w-auto">Task</th>
-      <th class="w-32 text-right">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for item in items %}
-    <tr>
-
-      <td>
-        <form
-          action="/item/update/{{ item.id }}"
-          method="POST"
-          class="text-center">
-          <input type="hidden" name="completed" value="0">
-          <input
-            type="checkbox"
-            name="completed"
-            value="1"
-            onchange="this.form.submit()"
-            class="w-8 h-8"
-            {% if item.completed == true %}checked{% endif %}
-          />
-          <input type="hidden" name="list_id" value="{{ list.id }}">
-        </form>
-        </td>
-
-        <td x-data="{ open: false }" class="flex items-center">
-          <span x-show="open !== true">{{ item.content }}</span>
-
-          <button
-            @click.prevent="open = !open"
-            x-show="open !== true"
-            class="ml-auto">
-            Edit
-          </button>
-
-          <form
-            method="POST"
-            action="/item/update/{{ item.id }}"
-            x-show="open === true"
-            class="flex w-full">
-            <input type="text" name="content" value="{{ item.content }}" required class="w-1/2" />
-            <input type="hidden" name="list_id" value="{{ list.id }}">
-            <button class="button-primary ml-2">save</button>
-            <button type="reset" @click="open = false" class="ml-auto">Cancel</button>
-          </form>
-        </td>
-
-      <td>
-        <form action="/item/delete/{{ item.id }}" method="POST">
-          <input type="hidden" name="list_id" value="{{ list.id }}">
-          <button>delete</button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
+    {% if context.params.password %}
+      {% capture message -%}
+        [{{ id }}] {{ list.title }} - {{ context.params.password }}
+      {%- endcapture %}
+      {% log message, type: 'wrong-password' %}
+    {% endif %}
+  {% endif %}
 {% else %}
-
-<br>
-
-<p>
-  Because this list is empty, you can remove it.
-</p>
-
-<form action="/list/delete/{{ list.id }}" method="POST">
-  <button>Delete</button>
-</form>
-
+  {% include 'list/show' %}
 {% endif %}
-
-{% else %}
-
-This list has been deleted.
-
-{% endunless %}

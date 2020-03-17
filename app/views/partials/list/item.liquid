@@ -1,0 +1,51 @@
+<tr>
+  <td>
+    <form
+      action="/item/update/{{ item.id }}"
+      method="POST"
+      class="text-center">
+      <input type="hidden" name="completed" value="0">
+      <input type="hidden" name="password" value="{{ list.password }}">
+      <input
+        type="checkbox"
+        name="completed"
+        value="1"
+        onchange="this.form.submit()"
+        class="w-8 h-8"
+        {% if item.completed == true %}checked{% endif %}
+      />
+      <input type="hidden" name="list_id" value="{{ list.id }}">
+    </form>
+    </td>
+
+    <td x-data="{ open: false }" class="flex items-center">
+      <span x-show="open !== true">{{ item.content }}</span>
+
+      <button
+        @click.prevent="open = !open"
+        x-show="open !== true"
+        class="ml-auto">
+        Edit
+      </button>
+
+      <form
+        method="POST"
+        action="/item/update/{{ item.id }}"
+        x-show="open === true"
+        class="flex w-full">
+        <input type="text" name="content" value="{{ item.content }}" required class="w-1/2" />
+        <input type="hidden" name="list_id" value="{{ list.id }}">
+        <input type="hidden" name="password" value="{{ list.password }}">
+        <button class="button-primary ml-2">save</button>
+        <button type="reset" @click="open = false" class="ml-auto">Cancel</button>
+      </form>
+    </td>
+
+  <td>
+    <form action="/item/delete/{{ item.id }}" method="POST">
+      <input type="hidden" name="list_id" value="{{ list.id }}">
+      <input type="hidden" name="password" value="{{ list.password }}">
+      <button>delete</button>
+    </form>
+  </td>
+</tr>

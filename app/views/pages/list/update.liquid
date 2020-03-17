@@ -8,7 +8,7 @@ method: post
 {% assign list = result | fetch: "model_update" %}
 
 {% if list.id %}
-<script>window.location.href = '/list/show/{{ id }}';</script>
+<script>window.location.href = '/list/show/{{ id }}?password={{ list.password }}';</script>
 {% else %}
 Something went wrong :(
 <br>

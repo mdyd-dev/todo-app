@@ -2,3 +2,7 @@ name: list
 properties:
 - name: title
   type: string
+- name: password
+  type: string
+- name: email
+  type: string

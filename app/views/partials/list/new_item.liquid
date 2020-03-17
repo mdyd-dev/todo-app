@@ -1,0 +1,17 @@
+<div x-data="{ open: false }">
+  <button class="button-primary"
+    @click.prevent="open = !open"
+    x-show="open !== true">
+    Add new
+  </button>
+
+  <form
+    action="/item/create/{{ list.id }}"
+    method="POST"
+    x-show="open === true">
+    <input type="text" name="content" placeholder="Your task" required>
+    <input type="hidden" name="password" value="{{ context.params.password }}">
+    <button class="button-primary">Create</button>
+    <button type="reset" @click="open = false">Cancel</button>
+  </form>
+</div>
