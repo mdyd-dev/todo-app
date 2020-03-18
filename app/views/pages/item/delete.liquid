@@ -4,7 +4,7 @@ method: post
 {%- assign item_id = context.params.slug3 -%}
 {%- assign list_id = context.params.list_id -%}
 
-{% graphql result = 'item_delete', item_id: item_id %}
+{% graphql result = 'item/delete', item_id: item_id %}
 {% assign item = result | fetch: "model_delete" %}
 
 {% if item.id %}

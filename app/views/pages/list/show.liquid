@@ -1,6 +1,6 @@
 {%- assign id = context.params.slug3 -%}
-{% graphql list = 'list_read', id: id | fetch: 'models' | fetch: 'results' | first %}
-{% graphql items = 'item_read', id: id | fetch: 'models' | fetch: 'results' %}
+{% graphql list = 'list/read', id: id | fetch: 'models' | fetch: 'results' | first %}
+{% graphql items = 'item/read', id: id | fetch: 'models' | fetch: 'results' %}
 
 {% unless list.deleted_at %}
 

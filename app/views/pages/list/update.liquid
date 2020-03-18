@@ -4,7 +4,7 @@ method: post
 {%- assign id = context.params.slug3 -%}
 {%- assign title = context.params.title -%}
 
-{% graphql result = 'list_update', id: id, title: title %}
+{% graphql result = 'list/update', id: id, title: title %}
 {% assign list = result | fetch: "model_update" %}
 
 {% if list.id %}
